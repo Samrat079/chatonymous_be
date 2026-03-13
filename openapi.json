@@ -1,0 +1,419 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/api/messages/{conversationId}" : {
+      "get" : {
+        "summary" : "getMapping",
+        "description" : "getMapping",
+        "parameters" : [ {
+          "name" : "conversationId",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "id" : {
+                        "type" : "string",
+                        "description" : ""
+                      },
+                      "conversationId" : {
+                        "type" : "string",
+                        "description" : ""
+                      },
+                      "textContent" : {
+                        "type" : "string",
+                        "description" : ""
+                      },
+                      "createdBy" : {
+                        "type" : "string",
+                        "description" : "createdBy is the username of the maker"
+                      },
+                      "createdAt" : {
+                        "type" : "object",
+                        "properties" : {
+                          "seconds" : {
+                            "type" : "integer",
+                            "description" : "",
+                            "format" : "int64"
+                          },
+                          "nanos" : {
+                            "type" : "integer",
+                            "description" : ""
+                          }
+                        },
+                        "description" : ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages" : {
+      "post" : {
+        "summary" : "postMapping",
+        "description" : "postMapping",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "conversationId" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "textContent" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "createdBy" : {
+                    "type" : "string",
+                    "description" : "createdBy is the username of the maker"
+                  },
+                  "createdAt" : {
+                    "type" : "object",
+                    "properties" : {
+                      "seconds" : {
+                        "type" : "integer",
+                        "description" : "",
+                        "format" : "int64"
+                      },
+                      "nanos" : {
+                        "type" : "integer",
+                        "description" : ""
+                      }
+                    },
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "conversationId" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "textContent" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "createdBy" : {
+                      "type" : "string",
+                      "description" : "createdBy is the username of the maker"
+                    },
+                    "createdAt" : {
+                      "type" : "object",
+                      "properties" : {
+                        "seconds" : {
+                          "type" : "integer",
+                          "description" : "",
+                          "format" : "int64"
+                        },
+                        "nanos" : {
+                          "type" : "integer",
+                          "description" : ""
+                        }
+                      },
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/{id}" : {
+      "delete" : {
+        "summary" : "deleteMapping",
+        "description" : "deleteMapping",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/api/conversations" : {
+      "post" : {
+        "summary" : "postMapping",
+        "description" : "postMapping",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "participants" : {
+                    "type" : "array",
+                    "description" : "participants is the userName",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/conversations/{id}" : {
+      "delete" : {
+        "summary" : "deleteMapping",
+        "description" : "deleteMapping",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/api/users" : {
+      "post" : {
+        "summary" : "postMapping",
+        "description" : "postMapping",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "userName" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "passWord" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "dpUrl" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "bio" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "createdAt" : {
+                    "type" : "object",
+                    "properties" : {
+                      "seconds" : {
+                        "type" : "integer",
+                        "description" : "",
+                        "format" : "int64"
+                      },
+                      "nanos" : {
+                        "type" : "integer",
+                        "description" : ""
+                      }
+                    },
+                    "description" : ""
+                  },
+                  "updatedAt" : {
+                    "type" : "object",
+                    "properties" : {
+                      "seconds" : {
+                        "type" : "integer",
+                        "description" : "",
+                        "format" : "int64"
+                      },
+                      "nanos" : {
+                        "type" : "integer",
+                        "description" : ""
+                      }
+                    },
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "userName" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "passWord" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "dpUrl" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "bio" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "createdAt" : {
+                      "type" : "object",
+                      "properties" : {
+                        "seconds" : {
+                          "type" : "integer",
+                          "description" : "",
+                          "format" : "int64"
+                        },
+                        "nanos" : {
+                          "type" : "integer",
+                          "description" : ""
+                        }
+                      },
+                      "description" : ""
+                    },
+                    "updatedAt" : {
+                      "type" : "object",
+                      "properties" : {
+                        "seconds" : {
+                          "type" : "integer",
+                          "description" : "",
+                          "format" : "int64"
+                        },
+                        "nanos" : {
+                          "type" : "integer",
+                          "description" : ""
+                        }
+                      },
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}" : {
+      "delete" : {
+        "summary" : "deleteMapping",
+        "description" : "deleteMapping",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "java.time.Instant" : {
+        "type" : "object",
+        "properties" : {
+          "seconds" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "nanos" : {
+            "type" : "integer",
+            "description" : ""
+          }
+        },
+        "description" : ""
+      }
+    }
+  }
+}
