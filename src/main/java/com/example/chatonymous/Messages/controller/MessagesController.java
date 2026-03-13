@@ -18,8 +18,8 @@ public class MessagesController {
     public record MessagePostRecord(@NotNull String conversationId, String textContent, String createdBy) {
     }
 
-    @GetMapping("/{conversationId}")
-    public List<MessageModel> getMapping(@PathVariable String conversationId) {
+    @GetMapping
+    public List<MessageModel> getMapping(@RequestParam String conversationId) {
         return messagesRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
     }
 
