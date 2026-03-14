@@ -4,7 +4,6 @@ import com.example.chatonymous.users.model.JwtResponceRecord;
 import com.example.chatonymous.users.model.UserNamePasswordRecord;
 import com.example.chatonymous.users.services.TokenService;
 import com.example.chatonymous.users.model.UserModel;
-import com.example.chatonymous.users.repository.UsersRepository;
 import com.example.chatonymous.users.services.UsersServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Struct;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
