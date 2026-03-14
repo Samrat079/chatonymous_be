@@ -10,14 +10,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Struct;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-@CrossOrigin(origins = "*")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UsersController {
     private UsersServices usersServices;
     private AuthenticationManager authManager;
@@ -26,6 +31,11 @@ public class UsersController {
     @GetMapping
     public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false, value = "username") String username) {
         return usersServices.findByOrUserName(username);
+    }
+
+    @GetMapping("/current_user")
+    public ResponseEntity<UserModel> currentUser(@AuthenticationPrincipal Jwt jwt) {
+        return usersServices.getCurrentUser(jwt);
     }
 
     @PostMapping("/signup")

@@ -5,11 +5,13 @@ import com.example.chatonymous.users.model.UserNamePasswordRecord;
 import com.example.chatonymous.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,12 @@ public class UsersServices implements UserDetailsService {
         }
 
         return ResponseEntity.ok(usersRepository.findByUserNameContains(userName));
+    }
+
+    public ResponseEntity<UserModel> getCurrentUser(@AuthenticationPrincipal Jwt jwt) {
+        String currUser = jwt.getSubject();
+        UserModel userByName = usersRepository.findByUserNameIgnoreCase(currUser).orElse(null);
+        return ResponseEntity.ok(userByName);
     }
 
 
