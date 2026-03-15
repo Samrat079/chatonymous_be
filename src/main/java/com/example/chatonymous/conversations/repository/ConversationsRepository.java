@@ -6,5 +6,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ConversationsRepository extends MongoRepository<ConversationModel, String> {
-    List<ConversationModel> findByParticipantsContains(String username);
 }
