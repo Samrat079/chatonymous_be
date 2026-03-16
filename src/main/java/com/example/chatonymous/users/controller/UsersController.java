@@ -24,8 +24,8 @@ public class UsersController {
     private TokenService tokenService;
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false) String username) {
-        return usersServices.findByOrUserName(username);
+    public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false) String userName) {
+        return usersServices.findByOrUserName(userName);
     }
 
     @GetMapping("/current_user")
