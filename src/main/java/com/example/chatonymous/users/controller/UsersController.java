@@ -24,7 +24,7 @@ public class UsersController {
     private TokenService tokenService;
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false, value = "username") String username) {
+    public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false) String username) {
         return usersServices.findByOrUserName(username);
     }
 
