@@ -5,6 +5,7 @@ import com.example.chatonymous.conversations.model.participantsRecord;
 import com.example.chatonymous.conversations.repository.ConversationsRepository;
 import com.example.chatonymous.conversations.service.ConversationsServices;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ConversationsController {
     }
 
     @PostMapping
-    public ConversationModel postMapping(@RequestBody participantsRecord participantsRecord) {
+    public ResponseEntity<?> postMapping(@RequestBody participantsRecord participantsRecord) {
         return convoServices.addNewConvo(participantsRecord);
     }
 

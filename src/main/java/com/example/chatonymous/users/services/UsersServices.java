@@ -25,11 +25,15 @@ public class UsersServices implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<List<UserModel>> findByOrUserName(String userName) {
-        if (userName == null) {
+        if (userName == null || userName.isBlank()) {
             return ResponseEntity.ok(usersRepository.findAll());
         }
 
         return ResponseEntity.ok(usersRepository.findByUserNameContains(userName));
+    }
+
+    public List<UserModel> findByUserName(String userName) {
+        return usersRepository.findByUserNameContaining(userName);
     }
 
     public ResponseEntity<UserModel> getCurrentUser(@AuthenticationPrincipal Jwt jwt) {

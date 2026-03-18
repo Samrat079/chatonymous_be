@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface UsersRepository extends MongoRepository<UserModel, String> {
     Optional<UserModel> findByUserNameIgnoreCase(String username);
     List<UserModel> findByUserNameContains(String username);
+    List<UserModel> findByUserNameContaining(String username);
 
     boolean existsByUserNameIgnoreCase(String username);
 
