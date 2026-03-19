@@ -15,7 +15,7 @@ import java.util.List;
 public class MessagesController {
     private MessagesRepository messagesRepository;
 
-    public record MessagePostRecord(@NotNull String conversationId, String textContent, String createdBy) {
+    public record MessagePostRecord(@NotNull String conversationId, String textContent) {
     }
 
     @GetMapping
@@ -27,7 +27,6 @@ public class MessagesController {
     public MessageModel postMapping(@RequestBody MessagePostRecord messagePostRecord) {
         MessageModel messageModel = new MessageModel();
         messageModel.setConversationId(messagePostRecord.conversationId());
-        messageModel.setCreatedBy(messagePostRecord.createdBy());
         messageModel.setTextContent(messagePostRecord.textContent());
         return messagesRepository.save(messageModel);
     }
