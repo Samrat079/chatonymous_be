@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -37,10 +38,14 @@ public class ConversationsServices {
     }
 
     public ResponseEntity<?> addNewConvo(participantsRecord participantsRecord) {
+        // Without this the order becomes a issue
+        List<String> participants = participantsRecord.participants();
+        Collections.sort(participants);
+
         if (convoRepo.existsByParticipants(participantsRecord.participants())) {
-            System.out.println("This exists");
             return ResponseEntity.badRequest().body("Conversation already exists");
         }
+
         ConversationModel conversationModel = new ConversationModel();
         conversationModel.setParticipants(participantsRecord.participants());
         return ResponseEntity.ok(convoRepo.save(conversationModel));
