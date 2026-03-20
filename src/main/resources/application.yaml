@@ -10,3 +10,7 @@ jwt:
   secret: mysupersecretjwtkey5r7y5678901234567890
   expiration: 3600000
 
+encryption:
+  key: 9201f0b49d1af10e257ec672dd1c2603
+  salt: 8d408f0246a72676e0947ab386caca13
+

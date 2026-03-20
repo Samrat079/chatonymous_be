@@ -43,7 +43,7 @@ public class ConversationsServices {
         Collections.sort(participants);
 
         if (convoRepo.existsByParticipants(participantsRecord.participants())) {
-            return ResponseEntity.badRequest().body("Conversation already exists");
+            return ResponseEntity.badRequest().body("message: Conversation already exists");
         }
 
         ConversationModel conversationModel = new ConversationModel();

@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -50,7 +51,7 @@ public class UsersServices implements UserDetailsService {
 
         UserModel newUser = new UserModel();
         newUser.setUserName(userRecord.userName());
-        newUser.setPassWord(passwordEncoder.encode(userRecord.passWord()));
+        newUser.setPassWord(Objects.requireNonNull(passwordEncoder.encode(userRecord.passWord())));
         return ResponseEntity.ok(usersRepository.save(newUser));
     }
 

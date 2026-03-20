@@ -20,7 +20,7 @@ public class MessageModel {
     private String id;
 
     @NonNull
-    private String conversationId, textContent; // createdBy is the username of the maker
+    private String conversationId, textContent, encryptedContent;
 
     @CreatedBy
     private String createdBy;

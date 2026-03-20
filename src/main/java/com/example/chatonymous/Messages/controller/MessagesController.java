@@ -2,6 +2,7 @@ package com.example.chatonymous.Messages.controller;
 
 import com.example.chatonymous.Messages.model.MessageModel;
 import com.example.chatonymous.Messages.repository.MessagesRepository;
+import com.example.chatonymous.Messages.services.EncryptionService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,20 +15,30 @@ import java.util.List;
 @RequestMapping("/api/messages")
 public class MessagesController {
     private MessagesRepository messagesRepository;
+    private EncryptionService encryptionService;
 
     public record MessagePostRecord(@NotNull String conversationId, String textContent) {
     }
 
     @GetMapping
     public List<MessageModel> getMapping(@RequestParam String conversationId) {
-        return messagesRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
+        List<MessageModel> msg = messagesRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
+        for  (MessageModel m : msg) {
+            m.setTextContent(encryptionService.decrypt(m.getTextContent()));
+        }
+        return msg;
     }
 
     @PostMapping
     public MessageModel postMapping(@RequestBody MessagePostRecord messagePostRecord) {
         MessageModel messageModel = new MessageModel();
         messageModel.setConversationId(messagePostRecord.conversationId());
-        messageModel.setTextContent(messagePostRecord.textContent());
+
+        String hashText = encryptionService.encrypt(messagePostRecord.textContent());
+
+        messageModel.setTextContent(hashText);
+        messageModel.setEncryptedContent(hashText);
+
         return messagesRepository.save(messageModel);
     }
 
