@@ -4,8 +4,14 @@ import com.example.chatonymous.users.model.UserModel;
 import com.example.chatonymous.users.model.UserNamePasswordRecord;
 import com.example.chatonymous.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -24,28 +31,35 @@ public class UsersServices implements UserDetailsService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+    private MongoTemplate mongoTemplate;
 
     public ResponseEntity<List<UserModel>> findByOrUserName(String userName) {
-        if (userName == null || userName.isBlank()) {
-            return ResponseEntity.ok(usersRepository.findAll());
+        Query query = new Query();
+        String currUser = Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getName();
+        Criteria criteria = Criteria.where("userName").ne(currUser);
+
+        if (userName != null && !userName.isBlank()) {
+            Pattern pattern = Pattern.compile(".*" + Pattern.quote(userName) + ".*", Pattern.CASE_INSENSITIVE);
+            criteria.regex(pattern);
         }
 
-        return ResponseEntity.ok(usersRepository.findByUserNameContains(userName));
+        query.addCriteria(criteria);
+        return ResponseEntity.ok(mongoTemplate.find(query, UserModel.class));
     }
 
     public List<UserModel> findByUserName(String userName) {
         return usersRepository.findByUserNameContaining(userName);
     }
 
-    public ResponseEntity<UserModel> getCurrentUser(@AuthenticationPrincipal Jwt jwt) {
-        String currUser = jwt.getSubject();
+    public ResponseEntity<UserModel> getCurrentUser() {
+        String currUser = SecurityContextHolder.getContext().getAuthentication().getName();
         UserModel userByName = usersRepository.findByUserNameIgnoreCase(currUser).orElse(null);
         return ResponseEntity.ok(userByName);
     }
 
 
     public ResponseEntity<?> signup(UserNamePasswordRecord userRecord) {
-        if (usersRepository.existsByUserNameIgnoreCase(userRecord.userName())){
+        if (usersRepository.existsByUserNameIgnoreCase(userRecord.userName())) {
             return ResponseEntity.badRequest().body("User already exists");
         }
 

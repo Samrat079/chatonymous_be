@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +30,15 @@ public class UsersController {
     private TokenService tokenService;
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> getMapping(@RequestParam(required = false) String userName) {
+    public ResponseEntity<List<UserModel>> getMapping(
+            @RequestParam(required = false) String userName
+    ) {
         return usersServices.findByOrUserName(userName);
     }
 
     @GetMapping("/current_user")
-    public ResponseEntity<UserModel> currentUser(@AuthenticationPrincipal Jwt jwt) {
-        return usersServices.getCurrentUser(jwt);
+    public ResponseEntity<UserModel> currentUser() {
+        return usersServices.getCurrentUser();
     }
 
     @PostMapping("/signup")
