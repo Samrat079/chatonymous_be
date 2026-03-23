@@ -69,6 +69,20 @@ public class UsersServices implements UserDetailsService {
         return ResponseEntity.ok(usersRepository.save(newUser));
     }
 
+    public ResponseEntity<?> update(UserModel userModel) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Optional<UserModel> currentUserOpt =
+                usersRepository.findByUserNameIgnoreCase(username);
+
+        if (currentUserOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+        userModel.setId(currentUserOpt.get().getId());
+
+        return ResponseEntity.ok(usersRepository.save(userModel));
+    }
+
     public ResponseEntity<?> delete(String userName) {
         if (!usersRepository.existsByUserNameIgnoreCase(userName)) {
             return ResponseEntity.notFound().build();

@@ -61,6 +61,11 @@ public class UsersController {
         return ResponseEntity.ok(new JwtResponceRecord(token));
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody UserModel userModel) {
+        return usersServices.update(userModel);
+    }
+
     @DeleteMapping("/{userName}")
     public ResponseEntity<?> deleteMapping(@PathVariable String userName) {
         return usersServices.delete(userName);
